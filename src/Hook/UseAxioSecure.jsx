@@ -2,7 +2,7 @@ import axios from "axios";
 import { AuthContext } from "../providers/AuthProvider";
 import { useContext } from "react";
 
-const backendUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:8001' : process.env.REACT_APP_BACKEND_URL;
+const backendUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:8000' : process.env.REACT_APP_BACKEND_URL;
 const axiosSecure = axios.create({
   baseURL: `${backendUrl}/api`,
 });

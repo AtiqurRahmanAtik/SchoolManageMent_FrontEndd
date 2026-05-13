@@ -12,7 +12,6 @@ const AuthProvider = ({ children }) => {
     return storedUser ? JSON.parse(storedUser) : null;
   });
 
-
   const [loading, setLoading] = useState(false);
   const axiosSecure = useAxiosPublic();
 
@@ -22,7 +21,6 @@ const AuthProvider = ({ children }) => {
   });
 
   // Registration
-  // Registration in AuthProvider.jsx
   const registerUser = async (userData) => {
     console.log("Registering user with data:", userData);
     setLoading(true);
@@ -36,9 +34,7 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-
   // LoginUser
- // LoginUser
   const loginUser = async (email, password) => {
     setLoading(true);
     try {
@@ -53,11 +49,8 @@ const AuthProvider = ({ children }) => {
       localStorage.setItem("authBranch", data.user.branch);
       localStorage.setItem("authToken", data.token);
 
-      // ❌ REMOVE THIS LINE: localStorage.setItem() 
-      
       return data.user;
     } catch (error) {
-      // Log the actual error to the console so you know what really failed!
       console.error("Actual Login Error:", error.response?.data || error);
       throw error;
     } finally {
@@ -65,20 +58,37 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-
-  
-
+  // LogoutUser
   const logoutUser = async () => {
     setLoading(true);
     try {
-      await axiosSecure.post("/user/logout", { email: user.email });
+      // Optional: Call the backend logout if the user is currently set
+      if (user?.email) {
+        await axiosSecure.post("/user/logout", { email: user.email });
+      }
+
+      // 1. Clear React State
       setUser(null);
-      setBranch(user.branch);
-      localStorage.removeItem("authUser");
-      localStorage.removeItem("authBranch");
-      localStorage.removeItem("authToken");
+      setBranch("teaxo"); // Reset to default branch instead of keeping the old one
+
+      // 2. Clear ALL Local and Session Storage (Removes all cached tokens and data)
+      localStorage.clear();
+      sessionStorage.clear();
+
+      // 3. Clear ALL Browser Cache Storage
+      if ('caches' in window) {
+        const cacheNames = await caches.keys();
+        await Promise.all(
+          cacheNames.map((cacheName) => caches.delete(cacheName))
+        );
+      }
+
+      // 4. Force a hard reload to the home page. 
+      // This immediately destroys any in-memory cache (like React Query or local variables) in all pages.
+      window.location.href = "/";
+      
     } catch (error) {
-      // You might want to handle logout errors, but per your request, logs are removed.
+      console.error("Logout Error:", error);
     } finally {
       setLoading(false);
     }
