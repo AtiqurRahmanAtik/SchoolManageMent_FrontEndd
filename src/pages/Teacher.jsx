@@ -5,11 +5,11 @@ import { useEmployees } from '../Hook/useEmployees'; // Adjust the import path a
 const bgColors = ["bg-[#25a9e0]", "bg-[#8e24aa]", "bg-[#f57c00]"];
 
 const OurTeachers = () => {
-  const { employees, fetchEmployeesByBranch, loading, error } = useEmployees();
+  const { employees, fetchAllEmployees, loading, error } = useEmployees();
 
   useEffect(() => {
-    fetchEmployeesByBranch(undefined, 1, 100);
-  }, [fetchEmployeesByBranch]);
+    fetchAllEmployees(1, 100);
+  }, [fetchAllEmployees]);
 
   return (
     <div className="w-full bg-white py-16 px-4 sm:px-6 lg:px-8">

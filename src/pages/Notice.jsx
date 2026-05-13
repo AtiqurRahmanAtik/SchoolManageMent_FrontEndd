@@ -4,12 +4,12 @@ import { Calendar } from 'lucide-react'; // Make sure you have lucide-react inst
 import { useRecentNotices } from '../Hook/useRecentNotices'; // Adjust path if necessary
 
 const Notice = () => {
-  const { recentNotices, loading, error, fetchRecentNoticesByBranch } = useRecentNotices();
+  const { recentNotices, loading, error, fetchAllRecentNotices } = useRecentNotices();
 
   useEffect(() => {
     // Fetch a generous amount of notices for the list
-    fetchRecentNoticesByBranch(undefined, 1, 50);
-  }, [fetchRecentNoticesByBranch]);
+    fetchAllRecentNotices(1, 50);
+  }, [fetchAllRecentNotices]);
 
   return (
     <div className="w-full bg-[#f4f6f8] py-12 px-4 sm:px-6 lg:px-8 min-h-screen">

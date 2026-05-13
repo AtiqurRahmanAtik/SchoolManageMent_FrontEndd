@@ -7,12 +7,12 @@ export default function NavigationBar() {
   const [isOpen, setIsOpen] = useState(false);
 
   // --- Institute Profile API Integration ---
-  const { instituteProfiles, fetchInstituteProfilesByBranch } = useInstituteProfile();
+  const { instituteProfiles, fetchAllInstituteProfiles } = useInstituteProfile();
 
   useEffect(() => {
     // Fetch profile data when the component mounts
-    fetchInstituteProfilesByBranch();
-  }, [fetchInstituteProfilesByBranch]);
+    fetchAllInstituteProfiles();
+  }, [fetchAllInstituteProfiles]);
 
   // Extract the current profile to get the dynamic logo
   const currentProfile = instituteProfiles && instituteProfiles.length > 0 ? instituteProfiles[0] : null;

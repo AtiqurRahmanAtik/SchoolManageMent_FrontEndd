@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useBanners } from '../Hook/useBanners'; // Adjust the import path as necessary
 
 const Banner = () => {
-  const { banners, fetchBannersByBranch, loading } = useBanners();
+  const { banners, fetchAllBanners, loading } = useBanners();
   const [animate, setAnimate] = useState(false);
 
   // Fetch banner data on component mount
   useEffect(() => {
-    fetchBannersByBranch();
-  }, [fetchBannersByBranch]);
+    fetchAllBanners();
+  }, [fetchAllBanners]);
 
   // Trigger text animation when banner data is loaded
   useEffect(() => {

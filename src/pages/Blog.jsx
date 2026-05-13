@@ -4,12 +4,12 @@ import { Clock, MessageSquare, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useBlogs } from '../Hook/useBlogs'; // Adjust the import path as necessary
 
 const Blog = () => {
-  const { blogs, loading, error, fetchBlogsByBranch } = useBlogs();
+  const { blogs, loading, error, fetchAllBlogs } = useBlogs();
 
   useEffect(() => {
     // Fetch a generous amount to fill the grid (e.g., page 1, 9 items)
-    fetchBlogsByBranch(undefined, 1, 9);
-  }, [fetchBlogsByBranch]);
+    fetchAllBlogs(1, 9);
+  }, [fetchAllBlogs]);
 
   if (loading) {
     return (

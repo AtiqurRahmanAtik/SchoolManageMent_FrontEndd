@@ -3,12 +3,12 @@ import Marquee from 'react-fast-marquee'; // npm install react-fast-marquee
 import { useRecentNotices } from '../Hook/useRecentNotices'; // Adjust the import path as necessary
 
 const RecentNotice = () => {
-  const { recentNotices, loading, error, fetchRecentNoticesByBranch } = useRecentNotices();
+  const { recentNotices, loading, error, fetchAllRecentNotices } = useRecentNotices();
 
   useEffect(() => {
     // Fetch a large limit (e.g., 50) to show all recent notices in the ticker
-    fetchRecentNoticesByBranch(undefined, 1, 50);
-  }, [fetchRecentNoticesByBranch]);
+    fetchAllRecentNotices(1, 50);
+  }, [fetchAllRecentNotices]);
 
   // If there's an error or no notices (and not loading), we can hide the bar or show a fallback
   if (error) {

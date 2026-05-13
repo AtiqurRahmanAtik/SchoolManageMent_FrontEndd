@@ -5,13 +5,13 @@ import { useEvents } from "../Hook/useEvents"; // Adjust the import path as nece
 const bgColors = ["bg-[#25a9e0]", "bg-[#8e24aa]", "bg-[#f57c00]"];
 
 const Events = () => {
-  const { events, loading, error, fetchEventsByBranch } = useEvents();
+  const { events, loading, error, fetchAllEvents } = useEvents();
   const scrollRef = useRef(null);
 
   useEffect(() => {
     // Fetch initial events (page 1, limit 10)
-    fetchEventsByBranch(undefined, 1, 10);
-  }, [fetchEventsByBranch]);
+    fetchAllEvents(1, 10);
+  }, [fetchAllEvents]);
 
   // Handle Carousel Scrolling
   const scroll = (direction) => {

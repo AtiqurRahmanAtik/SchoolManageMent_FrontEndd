@@ -1,12 +1,13 @@
 import { useState, useCallback } from "react";
-import axios from "axios";
+import UseAxiosSecure from "./UseAxioSecure";
 import useAuth from "./useAuth";
 // Adjust the import path for useAuth based on your project structure
 
-const API = `${process.env.REACT_APP_BACKEND_URL}/sections`;
+const API = "/sections";
 
 export const useSection = () => {
   const { branch } = useAuth();
+  const axiosSecure = UseAxiosSecure();
 
   const [sections, setSections] = useState([]);
   const [pagination, setPagination] = useState({
@@ -24,7 +25,7 @@ export const useSection = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get(`${API}/${branch}/get-all`, {
+      const response = await axiosSecure.get(`${API}/${branch}/get-all`, {
         params: { page, limit },
       });
       setSections(response.data.data);
@@ -42,7 +43,7 @@ export const useSection = () => {
     setError(null);
     try {
       // Sends: { sectionName, classId, className, branch }
-      const response = await axios.post(`${API}/post`, { ...sectionData, branch });
+      const response = await axiosSecure.post(`${API}/post`, { ...sectionData, branch });
       setSections((prev) => [response.data, ...prev]);
       return { success: true, data: response.data };
     } catch (err) {
@@ -60,7 +61,7 @@ export const useSection = () => {
     setError(null);
     try {
       // Sends: { sectionName, classId, className, branch }
-      const response = await axios.put(`${API}/update/${id}`, { ...sectionData, branch });
+      const response = await axiosSecure.put(`${API}/update/${id}`, { ...sectionData, branch });
       setSections((prev) =>
         prev.map((section) => (section._id === id ? response.data : section))
       );
@@ -79,7 +80,7 @@ export const useSection = () => {
     setLoading(true);
     setError(null);
     try {
-      await axios.delete(`${API}/delete/${id}`);
+      await axiosSecure.delete(`${API}/delete/${id}`);
       setSections((prev) => prev.filter((section) => section._id !== id));
       return { success: true };
     } catch (err) {

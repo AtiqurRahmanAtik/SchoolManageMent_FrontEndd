@@ -17,7 +17,7 @@ const OurActivities = () => {
     pagination,
     loading,
     error,
-    fetchOurActivitiesByBranch,
+    fetchAllOurActivities,
   } = useOurActivities();
 
   // State to control how many items are shown. Initially set to 6.
@@ -26,8 +26,8 @@ const OurActivities = () => {
 
   // Fetch data on component mount or when the limit changes
   useEffect(() => {
-    fetchOurActivitiesByBranch(undefined, 1, limit);
-  }, [fetchOurActivitiesByBranch, limit]);
+    fetchAllOurActivities(1, limit);
+  }, [fetchAllOurActivities, limit]);
 
   // Handler for the "View All Services" button
   const handleViewAll = () => {
